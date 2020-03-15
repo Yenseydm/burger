@@ -1,0 +1,77 @@
+<!-- nav -->
+<nav class="navbar navbar-light ">
+  <a class="navbar-brand" href="#">
+    <img src="https://media.giphy.com/media/USbBpBCW98iyqjjNH4/giphy.gif"  width="30" height="30" alt="">
+  </a>
+</nav>
+<!-- start of content-->
+<div class="container">
+
+		<!--title-->
+		<br><br>
+		<div class="row">
+		<img src="https://media.giphy.com/media/USbBpBCW98iyqjjNH4/giphy.gif" width="150" height="150">
+		<h1 id="title">Eat-Da-Burgers!</h1>
+		<img src="https://media.giphy.com/media/USbBpBCW98iyqjjNH4/giphy.gif" width="150" height="150">
+		</div>
+		<br>
+		<!-- end of title -->
+
+<div class="row"><!-- start of row -->
+	<div class="col-md-6 text">
+		<!-- ready to eat burgers have not been added to devoured list-->
+	<h3 class="card-header">Ready to Devour!</h2>
+		<ul>
+  			{{#each burgers}}
+	 		{{#unless this.devourIt}}
+			<div class="row">
+			 <p> {{this.burger_name}} </p>
+			 	<form action="burgers/update/{{this.id}}?_method=PUT" method="POST">
+	 		  			<input type="hidden" name="devoured" value="true">
+	 		  			<button class="btn btn-default btn-lg btn-warning" type="submit">Devour it!</button>
+	 		  		</form>
+			</div>
+			{{/unless}}
+			{{/each}}
+		</ul>
+		<!-- end -->
+	</div>
+
+	
+	<div class="col-md-6 text">
+<!-- column 2 -->
+	<h3 class="card-header"> Devoured!</h3>
+		<ul>
+		{{#each burgers}}
+		{{#if this.devourIt}}
+			
+ 		<li>	
+		<p>{{this.burger_name}}</p>
+		</li>
+
+		{{/if}}
+		{{/each}}
+		</ul>
+<!-- end -->
+	</div>
+
+</div><!-- end of row -->
+<br>
+<div class="row"> <!-- start of add button--->
+<div class="col-md-3"></div>
+	<div class="col-md-6 text">
+	<h3 class="card-header">Add Some Burgers!!</h2>
+		
+		<form class="create-update-form" action="burgers/create" method="POST">
+		 <div class="form-group">
+		 	<textarea class="form-control input-lg" type="text" name="burger_name" row="3"></textarea>
+		 </div>
+		 <button class="btn btn-default btn-lg btn-info" type="submit">Add Me!</button>
+		</form>
+
+	</div>
+</div> <!-- end of button -->
+<br>
+	
+</div>
+<!-- end of content -->
