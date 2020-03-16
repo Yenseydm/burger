@@ -4,6 +4,9 @@ var router = express.Router();
 
 var burger = require("../models/burger.js");
 
+router.get("/", function( req, res){
+  res.redirect("/burgers")
+});
 
 router.get("/burgers", function(req, res) {
   burger.selectAll(function(data) {
@@ -21,7 +24,6 @@ router.post("/burgers/create", function(req, res) {
   ], [
     req.body.burger_name
   ], function(data) {
-    // Send back the ID of the new quote
     res.redirect("/burgers");
   });
 });
@@ -32,9 +34,14 @@ router.put("/burgers/update/:id", function(req, res) {
   console.log("condition", condition);
 
   burger.updateOne({
-    "devourIt": req.body.devourIt
+    devoureIt: req.body.devoureIt
   }, condition, function(data) {
-    res.redirect("/burgers")
+    if (data.changedRows === 0) {
+      // If no rows were changed, then the ID must not exist, so 404
+      return res.status(404).end();
+    } else {
+      res.status(200).end();
+    }
   });
 });
 

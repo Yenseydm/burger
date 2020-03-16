@@ -22,17 +22,15 @@
 		<!-- ready to eat burgers have not been added to devoured list-->
 	<h3 class="card-header">Ready to Devour!</h2>
 		<ul>
+			
   			{{#each burgers}}
-	 		{{#unless this.devourIt}}
-			<div class="row">
-			 <p> {{this.burger_name}} </p>
-			 	<form action="burgers/update/{{this.id}}?_method=PUT" method="POST">
-	 		  			<input type="hidden" name="devoured" value="true">
-	 		  			<button class="btn btn-default btn-lg btn-warning" type="submit">Devour it!</button>
-	 		  		</form>
-			</div>
+	 		{{#unless devoureIt}}
+			 {{> burger-block devoureIt=false}}
+			
+		
 			{{/unless}}
 			{{/each}}
+
 		</ul>
 		<!-- end -->
 	</div>
@@ -43,12 +41,9 @@
 	<h3 class="card-header"> Devoured!</h3>
 		<ul>
 		{{#each burgers}}
-		{{#if this.devourIt}}
-			
- 		<li>	
-		<p>{{this.burger_name}}</p>
-		</li>
-
+		{{#if devoureIt}}
+			{{> burger-block devoureIt=true}}
+ 		
 		{{/if}}
 		{{/each}}
 		</ul>

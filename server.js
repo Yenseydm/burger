@@ -1,14 +1,17 @@
 var express = require("express");
-var PORT = process.env.PORT || 8080;
-var app = express();
-app.use(express.static("public"));
+var bodyParser = require("body-parser");
 
-// Parse application body
-app.use(express.static(__dirname + '/public'));
+var PORT = process.env.PORT || 8080;
+
+var app = express();
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
+app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use(bodyParser.json())
 
 // Set Handlebars.
 var exphbs = require("express-handlebars");
